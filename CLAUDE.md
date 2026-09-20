@@ -95,8 +95,9 @@ espaciado, radios, alturas y área táctil. No se inventan valores.
   final brand = Theme.of(context).extension<FiestucasColors>()!;
   ```
 
-- **Claro y oscuro** siempre, respetando la preferencia del sistema. Ningún logo, rótulo o
-  frase de tinta oscura sobre fondo oscuro: van sobre placa clara.
+- **Siempre tema claro.** La app no sigue la preferencia de oscuro del sistema: la identidad de
+  marca y los carteles de las fiestas viven sobre el fondo crema. `FiestucasTheme.dark` sigue
+  definido y probado como reserva, pero no se enchufa.
 - **Tipografía**: Fraunces en títulos, Nunito Sans en texto, empaquetadas en `assets/fonts/`.
 - **Adornos**: un motivo dominante por pantalla y, como mucho, un acento pequeño. Nunca tapan
   ni sustituyen la información de una fiesta. Marcados como decorativos para accesibilidad.

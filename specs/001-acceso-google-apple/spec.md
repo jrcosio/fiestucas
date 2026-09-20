@@ -19,6 +19,9 @@
   sustituible por Inicio sin tocar el acceso.
 - Q: ¿Se incluye ya un selector manual de tema? → A: No. La app solo sigue la preferencia del
   sistema; el selector y su persistencia pertenecen a Ajustes.
+- Q (decisión posterior): ¿la app debe respetar el modo oscuro del sistema? → A: No. Fiestucas se
+  presenta siempre en claro, por decisión de producto. Deja sin efecto la respuesta anterior sobre
+  seguir el sistema y motiva la enmienda de la constitución a v2.0.0.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -207,11 +210,10 @@ conservación del borrador.
 
 - **FR-016**: La pantalla MUST seguir el sistema de diseño del proyecto en paleta, tipografía,
   espaciado, radios, altura de botón y área táctil mínima.
-- **FR-017**: La app MUST ofrecer tema claro y tema oscuro y MUST seguir la preferencia del
-  sistema. Esta feature MUST NOT incluir un selector manual de tema: ese control pertenece a
-  Ajustes.
-- **FR-018**: En tema oscuro, ningún logo, rótulo o frase de tinta oscura MUST quedar sobre
-  fondo oscuro.
+- **FR-017**: La app MUST presentarse siempre en tema claro y MUST NOT seguir la preferencia de
+  oscuro del sistema. Tampoco incluye un selector manual de tema.
+- **FR-018**: La identidad visual MUST leerse sobre el fondo crema de la marca: logos, rótulos y
+  frases conservan su tinta original, sin inversiones ni filtros.
 - **FR-019**: La pantalla MUST usar los recursos gráficos propios del proyecto como ornamento, y
   estos MUST NOT tapar ni sustituir a las acciones ni a la información.
 - **FR-020**: Los elementos decorativos MUST marcarse como tales para las tecnologías de apoyo, y

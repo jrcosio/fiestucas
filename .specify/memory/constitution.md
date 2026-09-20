@@ -1,28 +1,31 @@
 <!--
 Sync Impact Report
-- Versión: 1.1.0 → 1.2.0 (MINOR: guía materialmente ampliada; ningún principio retirado)
+- Versión: 1.2.0 → 2.0.0 (MAJOR: se redefine de forma incompatible una regla MUST)
 - Principios modificados:
-  VI. Experiencia coherente y accesible → el sistema de diseño de
-      docs/producto/12-sistema-diseno.md pasa a ser de obligado cumplimiento: tokens
-      semánticos, tipografía, espaciado, tema claro y oscuro, uso de recursos gráficos y
-      lista de revisión visual antes de cerrar una pantalla.
-- Secciones modificadas:
-  Restricciones de producto y plataforma → se nombra el documento 12 como fuente de la
-      identidad visual.
+  VI. Experiencia coherente y accesible → la app deja de ofrecer tema oscuro. Se
+      retira la obligación de soportar dos temas y de seguir la preferencia del
+      sistema, y se sustituye por la de presentarse siempre en claro.
+- Por qué MAJOR: desaparece una obligación que las pantallas ya construidas
+  cumplían, y ninguna funcionalidad futura tendrá que soportar dos temas. Es una
+  redefinición del principio, no una aclaración.
 - Principios añadidos: ninguno
 - Secciones eliminadas: ninguna
-- Plantillas dependientes: sin cambios. El gate «Constitution Check» de
-  .specify/templates/plan-template.md sigue derivándose de los siete principios.
+- Plantillas dependientes: sin cambios.
+- Seguimiento: el FR-017 de specs/001-acceso-google-apple/spec.md, el documento
+  docs/producto/12-sistema-diseno.md y CLAUDE.md se corrigen en el mismo cambio.
 - TODO pendientes: ninguno
 
 Historial
-- 1.1.0 (2026-09-20): excepción «Andamiaje de plataforma» en el flujo SDD; `firebase_core`
-  declarado cimiento en el principio IV; regla de secretos precisada en el principio V.
-- 1.0.0 (2026-09-20): ratificación inicial con siete principios —I. Una sola app Flutter
-  para iOS y Android; II. Arquitectura por funcionalidades con MVVM pragmático; III. Estado
-  con Riverpod 3.x; IV. Firebase como plataforma del proyecto; V. Moderación previa y
-  seguridad sin privilegios en el cliente; VI. Experiencia coherente y accesible;
-  VII. Calidad verificable— y las secciones de restricciones, flujo SDD y gobernanza.
+- 1.2.0 (2026-09-20): el sistema de diseño de docs/producto/12-sistema-diseno.md
+  pasa a ser de obligado cumplimiento.
+- 1.1.0 (2026-09-20): excepción «Andamiaje de plataforma» en el flujo SDD;
+  `firebase_core` declarado cimiento; regla de secretos precisada.
+- 1.0.0 (2026-09-20): ratificación inicial con siete principios —I. Una sola app
+  Flutter para iOS y Android; II. Arquitectura por funcionalidades con MVVM
+  pragmático; III. Estado con Riverpod 3.x; IV. Firebase como plataforma del
+  proyecto; V. Moderación previa y seguridad sin privilegios en el cliente;
+  VI. Experiencia coherente y accesible; VII. Calidad verificable— y las
+  secciones de restricciones, flujo SDD y gobernanza.
 -->
 
 # Constitución de Fiestucas
@@ -148,8 +151,14 @@ toda pantalla:
   altura de botón y área táctil mínima salen de ese documento.
 - Los colores se aplican SIEMPRE por token semántico. PROHIBIDO escribir un hexadecimal suelto
   en un widget. Lo que no cabe en `ColorScheme` se expone mediante un `ThemeExtension`.
-- La app ofrece tema claro y oscuro y respeta la preferencia del sistema. Ningún logo, rótulo o
-  frase de tinta oscura queda sobre fondo oscuro.
+- Fiestucas se presenta SIEMPRE en tema claro y NO sigue la preferencia de oscuro del sistema.
+  La identidad de la marca —fondo crema, verde bosque y el arte festivo de guirnaldas, confeti,
+  rótulos e ilustraciones— está construida sobre ese fondo, y los carteles originales de las
+  fiestas, que son el contenido principal de la app, se leen sobre claro. Es una decisión de
+  producto, no una limitación técnica.
+- La paleta oscura sigue documentada en el sistema de diseño, y `FiestucasTheme.dark` sigue
+  definido y probado en el código, como reserva por si algún día se retoma. Si vuelve, vuelve con
+  su regla: ningún logo, rótulo o frase de tinta oscura queda sobre fondo oscuro.
 - Los recursos gráficos son ornamento puntual y NUNCA sustituyen a la información de una
   fiesta: una pantalla tiene un motivo dominante y, como máximo, un acento pequeño.
 - Ninguna pantalla se da por cerrada sin pasar la lista de revisión visual de la sección 8 de
@@ -236,4 +245,4 @@ documentos de producto y los hábitos heredados de otros repositorios.
 - **Guía operativa**: `CLAUDE.md` traduce estos principios a reglas de trabajo diarias. Si
   `CLAUDE.md` y esta constitución discrepan, manda la constitución y se corrige `CLAUDE.md`.
 
-**Version**: 1.2.0 | **Ratified**: 2026-09-20 | **Last Amended**: 2026-09-20
+**Version**: 2.0.0 | **Ratified**: 2026-09-20 | **Last Amended**: 2026-09-20

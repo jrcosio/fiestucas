@@ -2,6 +2,12 @@
 
 **Ámbito:** aplicación Flutter para iOS y Android. **Estado:** guía de implementación. La pantalla de acceso y los recursos gráficos existentes son la referencia visual. Los valores claros se han aproximado a partir de esa pantalla; la variante oscura es una propuesta diseñada para conservar el carácter de marca y el contraste. No se afirma que las tipografías propuestas sean las utilizadas para generar el mockup.
 
+> **Decisión de producto (2026-09-20): Fiestucas se presenta siempre en tema claro.** La app no
+> sigue la preferencia de oscuro del sistema. La columna «Modo oscuro» de las tablas de este
+> documento se conserva como reserva documentada por si algún día se retoma, pero hoy no se
+> implementa en la app. Todo lo demás —paleta clara, tipografía, espaciado, componentes— sigue
+> vigente y es de obligado cumplimiento.
+
 ## 1. Dirección visual
 
 Fiestucas combina una interfaz clara y funcional con detalles de fiesta popular cántabra. Fondo crema, verde bosque como color estructural, rojo fiesta para la acción principal, dorado como acento y dibujos artesanales discretos. La información —localidad, fecha, programa y fuente— debe seguir siendo lo primero. El modo oscuro no invierte los dibujos ni coloca texto oscuro del logo sobre un fondo oscuro.
@@ -100,7 +106,7 @@ Recursos disponibles: logo oficial, guirnaldas, corazones, adornos radiales, fra
 
 ## 7. Implementación en Flutter
 
-Definir `FiestucasTheme.light` y `FiestucasTheme.dark` con `ThemeData`/`ColorScheme` y `TextTheme`. Los colores fuera de `ColorScheme` (`action`, superficies adicionales, estados de verificación) se exponen mediante un `ThemeExtension`, no con literales repartidos por widgets. `MaterialApp.themeMode` permite `system`, `light` y `dark`, con preferencia persistida por usuario. Probar cambio de tema con la app abierta, las barras del sistema, diálogos, mapa, cartel y pantalla de acceso.
+Definir `FiestucasTheme.light` y `FiestucasTheme.dark` con `ThemeData`/`ColorScheme` y `TextTheme`. Los colores fuera de `ColorScheme` (`action`, superficies adicionales, estados de verificación) se exponen mediante un `ThemeExtension`, no con literales repartidos por widgets. `MaterialApp.themeMode` se fija en `light`: la app no sigue la preferencia del sistema ni ofrece selector. `FiestucasTheme.dark` se mantiene definido y probado como reserva. Probar las barras del sistema, diálogos, mapa, cartel y pantalla de acceso sobre el fondo claro.
 
 Ejemplo de acceso en widgets (orientativo, sin fijar paquete de estado):
 
@@ -115,7 +121,7 @@ final uploadButtonColor = brand.action;
 
 ## 8. Revisión visual antes de cerrar una pantalla
 
-- La misma tarea se puede completar en iOS y Android con tema claro y oscuro.
+- La misma tarea se puede completar en iOS y Android, siempre sobre el tema claro.
 - Texto escalado, teclado, bordes seguros, pantalla pequeña y giro si aplica no cortan acciones importantes.
 - Texto e iconos conservan contraste; el color nunca es la única indicación de estado.
 - Ningún logo o rótulo de tinta oscura queda sobre fondo oscuro; las imágenes no tapan botones.

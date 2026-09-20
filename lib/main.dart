@@ -74,8 +74,14 @@ class MainApp extends StatelessWidget {
       title: 'Fiestucas',
       debugShowCheckedModeBanner: false,
       theme: FiestucasTheme.light,
-      darkTheme: FiestucasTheme.dark,
-      themeMode: ThemeMode.system,
+      // Fiestucas se presenta siempre en claro, por decisión de producto: el
+      // crema y el verde bosque son la identidad de la marca, y el conjunto
+      // —guirnaldas, confeti, carteles e ilustraciones— está pensado sobre ese
+      // fondo. No se sigue la preferencia de oscuro del sistema.
+      //
+      // `FiestucasTheme.dark` se conserva definido y probado por si algún día
+      // se retoma; hoy no se enchufa a propósito.
+      themeMode: ThemeMode.light,
       home: const Arranque(),
     );
   }

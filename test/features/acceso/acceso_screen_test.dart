@@ -90,7 +90,10 @@ void main() {
       expect(find.textContaining('El cartel'), findsOneWidget);
     });
 
-    testWidgets('se pinta en tema oscuro sin romperse', (
+    // La app se presenta siempre en claro, pero el tema oscuro se conserva
+    // definido y probado como reserva: si algún día vuelve, esta prueba avisa
+    // de que la pantalla ya no encaja en él.
+    testWidgets('sigue componiéndose bien sobre el tema oscuro de reserva', (
       WidgetTester tester,
     ) async {
       await pintar(tester, tema: FiestucasTheme.dark);

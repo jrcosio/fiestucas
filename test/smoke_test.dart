@@ -27,6 +27,29 @@ void main() {
     expect(find.text('Entra en Fiestucas'), findsOneWidget);
   });
 
+  testWidgets('la app se presenta siempre en claro, ignorando el sistema', (
+    WidgetTester tester,
+  ) async {
+    final AutenticacionRepositoryFalso falso = AutenticacionRepositoryFalso();
+    addTearDown(falso.cerrar);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [autenticacionRepositoryProvider.overrideWithValue(falso)],
+        child: const MainApp(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final MaterialApp app = tester.widget<MaterialApp>(
+      find.byType(MaterialApp),
+    );
+    expect(app.themeMode, ThemeMode.light);
+    // Ni siquiera se ofrece un tema oscuro a MaterialApp: la decisión de
+    // producto es que la app no sigue la preferencia del sistema.
+    expect(app.darkTheme, isNull);
+  });
+
   testWidgets('con sesión válida no se pasa por la pantalla de acceso', (
     WidgetTester tester,
   ) async {
