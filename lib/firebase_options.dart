@@ -62,6 +62,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1047039107730',
     projectId: 'fiestucas-30dd4',
     storageBucket: 'fiestucas-30dd4.firebasestorage.app',
+    androidClientId: '1047039107730-28cnde9ftbc1veqvcb1d6p8mvn4ldikh.apps.googleusercontent.com',
     iosClientId: '1047039107730-o5b4rnhk8sa5jmrmmvupa4v31qiali88.apps.googleusercontent.com',
     iosBundleId: 'com.jrblanco.fiestucas',
   );

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1047039107730-28cnde9ftbc1veqvcb1d6p8mvn4ldikh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jrblanco.fiestucas",
+            "certificate_hash": "4b2544f43d37a18a34070d81e7db3bcb683ad2bb"
+          }
+        },
+        {
           "client_id": "1047039107730-2v12b6073rjmalaci812aillsa4vc8ja.apps.googleusercontent.com",
           "client_type": 3
         }

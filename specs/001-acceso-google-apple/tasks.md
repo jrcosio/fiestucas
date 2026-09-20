@@ -79,7 +79,7 @@ pantalla de sesión. Con el doble del repositorio se comprueba entero sin consol
 - [X] T023 [US1] Crear `lib/features/sesion/view/sesion_screen.dart`: pantalla provisional que confirma la sesión y permite cerrarla (FR-024), marcada en el propio fichero como sustituible por Inicio
 - [X] T024 [US1] Conectar el arranque en `lib/main.dart`: observar la sesión y mostrar acceso o pantalla de sesión, sin parpadeo mientras llega el primer valor (FR-005, FR-023)
 - [X] T025 [P] [US1] Escribir `test/features/acceso/acceso_screen_test.dart`: aparecen los dos botones y «Ahora no», pulsar Google invoca al ViewModel, y durante la carga los botones quedan bloqueados
-- [ ] T026 [US1] ⚙️ **Trámite del responsable del producto** — Configuración de plataforma para Google: `serverClientId` tomado del `client_type: 3` de `android/app/google-services.json`, y esquema de URL inverso (`REVERSED_CLIENT_ID`) añadido a `ios/Runner/Info.plist`
+- [X] T026 [US1] ⚙️ **Trámite del responsable del producto** — Configuración de plataforma para Google: `serverClientId` tomado del `client_type: 3` de `android/app/google-services.json`, y esquema de URL inverso (`REVERSED_CLIENT_ID`) añadido a `ios/Runner/Info.plist`
 
 **Checkpoint**: la app arranca en la pantalla de acceso, se parece al mockup y el login con Google
 funciona de extremo a extremo. Esto ya es un MVP entregable.
@@ -221,16 +221,14 @@ Hecho con la configuración ya habilitada en la consola:
   Gradle de google-services ya expone al SDK nativo el cliente de tipo web del proyecto. Pasar
   `androidClientId` era además el valor equivocado.
 
-Pendiente, y solo lo puedes hacer tú: **registrar la huella SHA-1 de depuración** en el app
-Android de Firebase. Hoy `google-services.json` solo tiene el `oauth_client` de tipo 3 (web) y
-ninguno de tipo 1, que es el que va ligado a la firma. Sin él, Google en Android falla.
+**Completada.** La huella SHA-1 de depuración quedó registrada y `google-services.json` ya trae
+el `oauth_client` de tipo 1 con `sha1=4b2544f43d37a18a34070d81e7db3bcb683ad2bb`.
 
-Huella de este equipo (`~/.android/debug.keystore`):
-
-```
-SHA-1    4B:25:44:F4:3D:37:A1:8A:34:07:0D:81:E7:DB:3B:CB:68:3A:D2:BB
-SHA-256  04:9F:36:D9:55:2A:CC:13:5B:1C:60:80:4D:34:DD:EF:14:E6:D1:9C:1F:9F:C5:A4:D3:9E:40:91:35:36:82:44
-```
+Antes de registrarla, el síntoma era engañoso: el selector de cuentas se abría, al elegir cuenta
+Google devolvía `[16] Account reauth failed`, el SDK lo traducía a «cancelado» y la pantalla
+volvía al inicio en silencio, sin ningún mensaje. Queda como aviso para cuando toque firmar la
+versión de publicación: **habrá que registrar también la huella de release**, o el mismo fallo
+reaparecerá solo en esa variante.
 
 ### T031 — Plataforma para Apple
 
@@ -248,6 +246,13 @@ Android: lo explica y deja Google, en vez de fallar al pulsar. En iOS funciona s
 
 ### T044 — Verificación
 
-La pantalla está comprobada en el simulador de iPhone, en claro y en oscuro, y compilan el APK de
-depuración y la app de iOS para simulador. Falta el guion completo en dispositivo real de ambas
-plataformas, que depende de los dos trámites de arriba.
+**Android: verificado de extremo a extremo** en el emulador (API 37). Recorrido completo:
+selector de cuenta → consentimiento → sesión creada → pantalla «¡Ya estás dentro!». Comprobado
+además que al matar y reabrir la app **no se pasa por la pantalla de acceso** (FR-005, SC-007), y
+que el aviso de «Este dispositivo no ofrece Apple» aparece como estaba previsto mientras no haya
+Service ID.
+
+**iOS**: la pantalla está comprobada en el simulador en claro y en oscuro, y la app compila. Falta
+el acceso real con Google y con Apple en dispositivo, que necesita firma.
+
+**Apple en Android**: bloqueado hasta que exista el Service ID (T031).
