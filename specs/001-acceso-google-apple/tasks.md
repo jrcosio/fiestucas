@@ -207,12 +207,47 @@ Después «Ahora no» y los textos legales (fase 5), que también son requisito 
 
 ## Estado al cerrar la implementación
 
-- **41 de 44 completadas.**
-- **T026 y T031** siguen abiertas: son trámites en las consolas de Firebase, Apple Developer y
-  Xcode. Comprobado que hoy `android/app/google-services.json` no tiene ningún `oauth_client` y
-  que `ios/Runner/GoogleService-Info.plist` no trae `CLIENT_ID` ni `REVERSED_CLIENT_ID`: esos
-  valores aparecen al habilitar Google en la consola y registrar la huella SHA-1. Hasta entonces
-  el intento real de entrar termina en un error explicado, no en un cuelgue.
-- **T044** queda a medias: la pantalla se ha verificado en el simulador de iPhone en claro y en
-  oscuro, y compilan APK de Android e iOS para simulador. Falta el guion completo en dispositivo
-  real de ambas plataformas, que depende de T026 y T031.
+- **41 de 44 completadas**, más la parte de código de T026 y T031.
+
+### T026 — Plataforma para Google
+
+Hecho con la configuración ya habilitada en la consola:
+
+- `GoogleService-Info.plist` y `google-services.json` traídos de Firebase y verificados idénticos
+  a los descargados a mano.
+- Esquema de URL inverso registrado en `ios/Runner/Info.plist`, sin el cual Google no puede
+  devolver el control a la app en iOS.
+- Corregido el cableado en Dart: en Android **no** se pasa `serverClientId`, porque el plugin de
+  Gradle de google-services ya expone al SDK nativo el cliente de tipo web del proyecto. Pasar
+  `androidClientId` era además el valor equivocado.
+
+Pendiente, y solo lo puedes hacer tú: **registrar la huella SHA-1 de depuración** en el app
+Android de Firebase. Hoy `google-services.json` solo tiene el `oauth_client` de tipo 3 (web) y
+ninguno de tipo 1, que es el que va ligado a la firma. Sin él, Google en Android falla.
+
+Huella de este equipo (`~/.android/debug.keystore`):
+
+```
+SHA-1    4B:25:44:F4:3D:37:A1:8A:34:07:0D:81:E7:DB:3B:CB:68:3A:D2:BB
+SHA-256  04:9F:36:D9:55:2A:CC:13:5B:1C:60:80:4D:34:DD:EF:14:E6:D1:9C:1F:9F:C5:A4:D3:9E:40:91:35:36:82:44
+```
+
+### T031 — Plataforma para Apple
+
+Hecho:
+
+- `ios/Runner/Runner.entitlements` con `com.apple.developer.applesignin`, registrado en las tres
+  configuraciones del target Runner.
+- Implementado el flujo web que Apple necesita **en Android**, que faltaba: sin
+  `webAuthenticationOptions` la llamada falla en esa plataforma.
+
+Pendiente: crear el **Service ID** en Apple Developer y pasarlo por
+`--dart-define=APPLE_SERVICE_ID=...`, y activar *Sign in with Apple* en el App ID
+`com.jrblanco.fiestucas`. Mientras el Service ID esté vacío, la pantalla no ofrece Apple en
+Android: lo explica y deja Google, en vez de fallar al pulsar. En iOS funciona sin él.
+
+### T044 — Verificación
+
+La pantalla está comprobada en el simulador de iPhone, en claro y en oscuro, y compilan el APK de
+depuración y la app de iOS para simulador. Falta el guion completo en dispositivo real de ambas
+plataformas, que depende de los dos trámites de arriba.

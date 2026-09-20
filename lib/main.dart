@@ -13,6 +13,16 @@ import 'features/acceso/view_model/acceso_view_model.dart';
 import 'features/sesion/view/sesion_screen.dart';
 import 'firebase_options.dart';
 
+/// Service ID que hay que crear en Apple Developer para que el acceso con Apple
+/// funcione **en Android**, donde el flujo es web.
+///
+/// En iOS no se usa: allí basta con la capacidad *Sign in with Apple* del
+/// target, que ya está declarada en `ios/Runner/Runner.entitlements`.
+///
+/// Mientras esté vacío, la pantalla de acceso no ofrece Apple en Android: lo
+/// explica y deja Google disponible, en vez de fallar al pulsar.
+const String appleServiceId = String.fromEnvironment('APPLE_SERVICE_ID');
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _registrarLicenciasDeFuentes();
@@ -20,11 +30,14 @@ Future<void> main() async {
 
   final FirebaseOptions opciones = DefaultFirebaseOptions.currentPlatform;
   final AutenticacionRepository repositorio = FirebaseAutenticacionRepository(
-    // En iOS sale del GoogleService-Info.plist; en Android no aplica.
+    // iOS toma su cliente del GoogleService-Info.plist. En Android no se pasa
+    // nada: el plugin de Gradle de google-services expone al SDK nativo el
+    // cliente de tipo web del proyecto, que es lo que hace falta.
     clientId: opciones.iosClientId,
-    // Cliente de tipo web del proyecto. Aparece en la configuración en cuanto
-    // se habilita Google en la consola de Firebase y se registra el SHA-1.
-    serverClientId: opciones.androidClientId,
+    appleServiceId: appleServiceId,
+    appleRedirectUri: Uri.parse(
+      'https://${opciones.projectId}.firebaseapp.com/__/auth/handler',
+    ),
   );
 
   runApp(

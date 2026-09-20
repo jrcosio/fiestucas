@@ -56,13 +56,13 @@ class DefaultFirebaseOptions {
     projectId: 'fiestucas-30dd4',
     storageBucket: 'fiestucas-30dd4.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBHS1PZbFlO5zc5V24cF7A7CEPRxbNjLqs',
     appId: '1:1047039107730:ios:ee241290890d740f8c7c4b',
     messagingSenderId: '1047039107730',
     projectId: 'fiestucas-30dd4',
     storageBucket: 'fiestucas-30dd4.firebasestorage.app',
+    iosClientId: '1047039107730-o5b4rnhk8sa5jmrmmvupa4v31qiali88.apps.googleusercontent.com',
     iosBundleId: 'com.jrblanco.fiestucas',
   );
 }

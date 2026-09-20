@@ -22,21 +22,46 @@ class FirebaseAutenticacionRepository implements AutenticacionRepository {
     GoogleSignIn? google,
     this.clientId,
     this.serverClientId,
+    this.appleServiceId,
+    this.appleRedirectUri,
   }) : _auth = auth ?? FirebaseAuth.instance,
        _google = google ?? GoogleSignIn.instance;
 
   final FirebaseAuth _auth;
   final GoogleSignIn _google;
 
-  /// Identificador de cliente de Google para esta plataforma. En iOS sale del
-  /// `GoogleService-Info.plist`; puede ser nulo.
+  /// Identificador de cliente de Google para esta plataforma, tomado del
+  /// `GoogleService-Info.plist` en iOS. Puede ser nulo.
   final String? clientId;
 
-  /// Identificador de cliente **de tipo web** del proyecto Firebase. En Android
-  /// es obligatorio: sin él, el `idToken` se emite para otra audiencia y
-  /// Firebase rechaza la credencial. Aparece en `google-services.json` en
-  /// cuanto se habilita Google en la consola y se registra la huella SHA-1.
+  /// Identificador de cliente **de tipo web**, solo necesario si el proyecto no
+  /// usa `google-services.json`. En este proyecto sí lo usa, y el plugin de
+  /// Gradle expone ese cliente al SDK nativo, así que aquí va nulo.
   final String? serverClientId;
+
+  /// Service ID de Apple Developer. **Solo lo usa Android**, donde el acceso con
+  /// Apple va por un flujo web. En iOS el sistema lo resuelve con la capacidad
+  /// *Sign in with Apple* del propio target.
+  final String? appleServiceId;
+
+  /// Dirección de retorno del flujo web de Apple: el manejador de
+  /// autenticación del proyecto Firebase.
+  final Uri? appleRedirectUri;
+
+  /// Opciones del flujo web de Apple, o `null` si falta configuración.
+  WebAuthenticationOptions? get _opcionesWebApple {
+    final String? id = appleServiceId;
+    final Uri? destino = appleRedirectUri;
+    if (id == null || id.isEmpty || destino == null) {
+      return null;
+    }
+    return WebAuthenticationOptions(clientId: id, redirectUri: destino);
+  }
+
+  /// En Android, sin Service ID no hay flujo de Apple posible.
+  bool get _appleNecesitaConfiguracionQueFalta =>
+      defaultTargetPlatform == TargetPlatform.android &&
+      _opcionesWebApple == null;
 
   bool _googleListo = false;
 
@@ -57,6 +82,9 @@ class FirebaseAutenticacionRepository implements AutenticacionRepository {
 
   @override
   Future<bool> appleDisponible() async {
+    if (_appleNecesitaConfiguracionQueFalta) {
+      return false;
+    }
     try {
       return await SignInWithApple.isAvailable();
     } on Object {
@@ -146,6 +174,8 @@ class FirebaseAutenticacionRepository implements AutenticacionRepository {
               AppleIDAuthorizationScopes.fullName,
             ],
             nonce: _sha256(nonce),
+            // Obligatorio en Android, ignorado en iOS.
+            webAuthenticationOptions: _opcionesWebApple,
           );
 
       final String? idToken = apple.identityToken;
