@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1047039107730",
+    "project_id": "fiestucas-30dd4",
+    "storage_bucket": "fiestucas-30dd4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047039107730:android:abf97675a1a777e78c7c4b",
+        "android_client_info": {
+          "package_name": "com.jrblanco.fiestucas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCAHI2z2D-L0Z7S7NAVC-mAjOF89DjVFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
