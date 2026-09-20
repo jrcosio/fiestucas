@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/estado_acceso.dart';
@@ -58,6 +59,20 @@ class AccesoViewModel extends Notifier<EstadoAcceso> {
       final SesionUsuario sesion = await _repositorio.entrarCon(proveedor);
       state = EstadoAcceso.autenticado(sesion);
     } on AccesoException catch (e) {
+      // En depuración se deja constancia del motivo y del detalle técnico. Es
+      // especialmente útil con «cancelado»: en Android, un error de
+      // configuración hace que el SDK devuelva ese código, y el plugin no
+      // puede distinguirlo de que la persona cierre el diálogo. Sin esta
+      // traza, un SHA-1 sin registrar se ve exactamente igual que una
+      // cancelación normal.
+      assert(() {
+        debugPrint(
+          'Acceso con ${proveedor.nombre} no completado: ${e.motivo.name}'
+          '${e.detalle == null ? '' : ' — ${e.detalle}'}',
+        );
+        return true;
+      }());
+
       // Cancelar es una decisión legítima: se vuelve al principio en silencio.
       state = e.motivo.esFallo
           ? EstadoAcceso.fallido(e.motivo, proveedor: proveedor)
