@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1047039107730",
+    "project_id": "fiestucas-30dd4",
+    "storage_bucket": "fiestucas-30dd4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047039107730:android:abf97675a1a777e78c7c4b",
+        "android_client_info": {
+          "package_name": "com.jrblanco.fiestucas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047039107730-28cnde9ftbc1veqvcb1d6p8mvn4ldikh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jrblanco.fiestucas",
+            "certificate_hash": "4b2544f43d37a18a34070d81e7db3bcb683ad2bb"
+          }
+        },
+        {
+          "client_id": "1047039107730-2v12b6073rjmalaci812aillsa4vc8ja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCAHI2z2D-L0Z7S7NAVC-mAjOF89DjVFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047039107730-2v12b6073rjmalaci812aillsa4vc8ja.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1047039107730-o5b4rnhk8sa5jmrmmvupa4v31qiali88.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jrblanco.fiestucas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,5 @@
 name: fiestucas
-description: "A new Flutter project."
+description: "Descubre fiestas patronales, romerías, verbenas, ferias y celebraciones populares de Cantabria."
 publish_to: 'none'
 version: 0.1.0+1
 
@@ -7,8 +7,14 @@ environment:
   sdk: ^3.13.4
 
 dependencies:
+  crypto: ^3.0.7
+  firebase_auth: ^6.7.0
+  firebase_core: ^4.15.0
   flutter:
     sdk: flutter
+  flutter_riverpod: ^3.4.3
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^8.2.0
 
 dev_dependencies:
   flutter_test:
@@ -17,3 +23,25 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/brand/
+    - assets/images/decor/
+    - assets/images/rotulos/
+    - assets/images/escenas/
+    - assets/fonts/OFL-Fraunces.txt
+    - assets/fonts/OFL-NunitoSans.txt
+
+  fonts:
+    - family: Fraunces
+      fonts:
+        - asset: assets/fonts/Fraunces-SemiBold.ttf
+          weight: 600
+    - family: Nunito Sans
+      fonts:
+        - asset: assets/fonts/NunitoSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NunitoSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/NunitoSans-Bold.ttf
+          weight: 700

@@ -12,6 +12,15 @@
 .swiftpm/
 migrate_working_dir/
 
+# Secretos (nunca en Git). Los ficheros de configuración de cliente de Firebase
+# (firebase_options.dart, google-services.json, GoogleService-Info.plist) SÍ se versionan:
+# son identificadores públicos, no secretos. Ver .specify/memory/constitution.md, principio V.
+.env
+.env.*
+!.env.example
+*-service-account*.json
+service-account*.json
+
 # IntelliJ related
 *.iml
 *.ipr
